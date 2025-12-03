@@ -44,6 +44,23 @@ export function WalletApp() {
         console.log("🚀 | doSwap | tx:", tx)
     };
 
+    const defindexDeposit = async () => {
+        if (!wallet) return;
+
+        const stellarWallet = StellarWallet.from(wallet)
+        const tx = await stellarWallet.sendTransaction({
+            contractId: "CB4DY5JJNT6H56YAPIMN3HMPNW3RIH5RTN463XRCJEDG3AMRHFP23GSS", // Example Contract ID
+            method: "deposit",
+            args: {
+                amounts_desired: [50000000], // string for i128
+                amounts_min: [50000000],           // string for i128
+                from: wallet.address,        // string for Address
+                invest: true,                 // bool
+            },
+        });
+        console.log("🚀 | defindexDeposit | tx:", tx)
+    }
+
     return (
         <div>
             <h2>💼 Wallet: {wallet?.address}</h2>
@@ -53,6 +70,9 @@ export function WalletApp() {
             {balances && <p>💳 XLM Balance: {balances.nativeToken.amount}</p>}
             {balances && <p>💳 USDC Balance: {balances.usdc.amount}</p>}
             <button onClick={doSwap}>Swap XLM to USDC Soroswap</button>
+            <br />
+            <br />
+            <button onClick={defindexDeposit}>Deposit to Defindex</button>
         </div>
     );
 }
