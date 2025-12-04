@@ -1,14 +1,13 @@
-import './App.css'
-import { WalletApp } from './components/walletApp'
+import './styles/globals.css';
+import { WalletApp } from './components/walletApp';
+import { NavigationProvider } from './contexts/NavigationContext';
 
 function App() {
-
   return (
-    <>
-      <div>TESTNET</div>
-      <WalletApp/>
-    </>
-  )
+    <NavigationProvider>
+      <WalletApp />
+    </NavigationProvider>
+  );
 }
 
-export default App
+export default App;
