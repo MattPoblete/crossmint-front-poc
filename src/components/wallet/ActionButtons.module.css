@@ -1,0 +1,12 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.divider {
+  width: 1px;
+  height: 1rem;
+  background: var(--glass-border);
+}
