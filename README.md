@@ -1,73 +1,111 @@
-# React + TypeScript + Vite
+# Crossmint + Soroswap + Defindex Integration POC
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A proof of concept demonstrating the integration of [Soroswap](https://soroswap.finance/) and [Defindex](https://defindex.io/) with [Crossmint](https://crossmint.com/) wallets on the Stellar network.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This POC showcases how to:
 
-## React Compiler
+- **Authenticate users** using Crossmint's embedded wallet solution
+- **Swap tokens** (XLM to USDC) via Soroswap's DEX on Stellar Testnet
+- **Deposit assets** into Defindex vaults for DeFi strategies
 
-The React Compiler is currently not compatible with SWC. See [this issue](https://github.com/vitejs/vite-plugin-react/issues/428) for tracking the progress.
+## Tech Stack
 
-## Expanding the ESLint configuration
+- **React 19** + TypeScript + Vite
+- **Crossmint SDK** - Wallet authentication and transaction signing
+- **Stellar SDK** - Blockchain interactions
+- **CSS Modules** - Scoped styling with glassmorphism UI
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Prerequisites
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Node.js 18+
+- pnpm (recommended) or npm
+- A Crossmint API key ([get one here](https://crossmint.com/))
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Setup
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+1. **Clone the repository**
+
+   ```bash
+   git clone <repository-url>
+   cd crossmint-front-poc
+   ```
+
+2. **Install dependencies**
+
+   ```bash
+   pnpm install
+   # or
+   npm install
+   ```
+
+3. **Configure environment variables**
+
+   Copy the example environment file and add your Crossmint API key:
+
+   ```bash
+   cp .env.example .env
+   ```
+
+   Edit `.env` and set your API key:
+
+   ```
+   VITE_CROSSMINT_API_KEY=your_crossmint_api_key_here
+   ```
+
+4. **Run the development server**
+
+   ```bash
+   pnpm dev
+   # or
+   npm run dev
+   ```
+
+5. **Open in browser**
+
+   Navigate to `http://localhost:5173`
+
+## Usage
+
+1. Click "Connect Wallet" to authenticate via Crossmint
+2. View your XLM and USDC balances on the dashboard
+3. Use "Swap XLM to USDC" to exchange tokens via Soroswap
+4. Use "Deposit to Defindex" to invest in DeFi strategies
+
+## Project Structure
+
+```
+src/
+├── components/
+│   ├── ui/           # Reusable UI components (GlassCard, Button, Input, etc.)
+│   ├── wallet/       # Wallet-specific components (WalletHeader, BalanceCard)
+│   └── views/        # Page views (Dashboard, SwapView, DepositView)
+├── contexts/         # React contexts (NavigationContext)
+├── hooks/            # Custom hooks (useWalletOperations)
+├── styles/           # Global styles
+└── types/            # TypeScript type definitions
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+## Network
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+This POC runs on **Stellar Testnet**. The following contract addresses are used:
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- **Soroswap Router**: `CCMAPXWVZD4USEKDWRYS7DA4Y3D7E2SDMGBFJUCEXTC7VN6CUBGWPFUS`
+- **Defindex Vault**: `CB4DY5JJNT6H56YAPIMN3HMPNW3RIH5RTN463XRCJEDG3AMRHFP23GSS`
+- **XLM Token**: `CDLZFC3SYJYDZT7K67VZ75HPJVIEUVNIXF47ZG2FB2RMQQVU2HHGCYSC`
+- **USDC Token**: `CBIELTK6YBZJU5UP2WWQEUCYKLPU6AUNZ2BQ4WWFEIE3USCIHMXQDAMA`
+
+## Disclaimer
+
+This is a **proof of concept** and is not intended for production use. Use at your own risk.
+
+## Built by
+
+**[PaltaLabs](https://paltalabs.io)** - Building on Stellar & Soroban
+
+---
+
+## License
+
+MIT
